@@ -12,7 +12,15 @@ connectDB();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+// CORS setup
+app.use(
+  cors({
+    origin: "https://employee-management-system-eight-lac.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // Test route
 app.get("/", (req, res) => {
@@ -22,8 +30,8 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
-
-
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);
